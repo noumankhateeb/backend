@@ -80,4 +80,44 @@ const loginUser = async (req, res) => {
     res.status(200).json({ message: 'Login successful', token, user: userWithoutPassword })
 }
 
-module.exports = { signupUser, loginUser }
+
+// edit user profile
+const editUserProfile = async (req, res) => {
+    const { id } = req.user;  // Assumes JWT middleware sets req.user
+    const { firstname, lastname, email, dob, phone } = req.body;
+
+    if (!firstname && !lastname && !email && !dob && !phone) {
+        return res.status(400).json({ error: 'At least one field is required to update' });
+    }
+
+    try {
+        const user = await User.findById(id);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        if (email && email !== user.email) {
+            const existingUser = await User.findOne({ email });
+            if (existingUser) {
+                return res.status(400).json({ error: 'Email is already in use' });
+            }
+            user.email = email;
+        }
+
+        if (firstname) user.firstname = firstname;
+        if (lastname) user.lastname = lastname;
+        if (dob) user.dob = dob;
+        if (phone) user.phone = phone;
+
+        const updatedUser = await user.save();
+
+        const userWithoutPassword = updatedUser.toObject();
+        delete userWithoutPassword.password;
+
+        res.status(200).json({ message: 'Profile updated successfully', user: userWithoutPassword });
+    } catch (error) {
+        res.status(500).json({ error: 'Error updating profile' });
+    }
+};
+
+module.exports = { signupUser, loginUser, editUserProfile }
