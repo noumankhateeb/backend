@@ -19,6 +19,11 @@
    npm install
    ```
 
+### Add Environment Variables
+1. Create a `.env` file in the backend directory.
+2. Add the secret keys provided by the owner to the `.env` file.
+
+
 ### Run the Project
 1. Start the server:
    ```bash
