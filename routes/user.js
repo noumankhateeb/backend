@@ -12,7 +12,7 @@ router.post('/signup', signupUser)
 //login route
 router.post('/login', loginUser)
 
-//login route
+//edit route
 router.put('/edit',authenticate, editUserProfile)
 
 module.exports = router

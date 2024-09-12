@@ -83,7 +83,7 @@ const loginUser = async (req, res) => {
 
 // edit user profile
 const editUserProfile = async (req, res) => {
-    const { id } = req.user;  // Assumes JWT middleware sets req.user
+    const { id } = req.user;
     const { firstname, lastname, email, dob, phone } = req.body;
 
     if (!firstname && !lastname && !email && !dob && !phone) {
