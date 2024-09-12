@@ -21,8 +21,12 @@
 
 ### Add Environment Variables
 1. Create a `.env` file in the backend directory.
-2. Add the secret keys provided by the owner to the `.env` file.
-
+2. Add the secret keys provided by the owner to the `.env` file. You can also use your own MongoDB URI and JWT secret:
+   ```plaintext
+   PORT=4000
+   MONGO_URI=your_mongodb_uri
+   JWT_SECRET=your_jwt_secret
+   ```
 
 ### Run the Project
 1. Start the server:
